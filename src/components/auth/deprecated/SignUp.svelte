@@ -16,7 +16,7 @@
 		<a class="link link-secondary" href="test">Log in</a>
 	</p>
 	<div class="flex w-full flex-col gap-2">
-        <label class="flex w-full flex-col items-start gap-1 text-sm">
+		<label class="flex w-full flex-col items-start gap-1 text-sm">
 			Username
 			<input class="input input-sm" />
 		</label>

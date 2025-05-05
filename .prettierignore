@@ -4,4 +4,5 @@ pnpm-lock.yaml
 yarn.lock
 bun.lock
 bun.lockb
-pg_data
+pg_data/
+prisma/
