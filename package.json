@@ -1,5 +1,5 @@
 {
-	"name": "weight-tracker",
+	"name": "adipose",
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
@@ -26,6 +26,7 @@
 		"@tailwindcss/vite": "^4.0.0",
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/svelte": "^5.2.4",
+		"@types/node": "^22.15.3",
 		"daisyui": "^5.0.35",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
@@ -35,6 +36,7 @@
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
+		"prisma": "^6.7.0",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"tailwindcss": "^4.0.0",
@@ -47,5 +49,11 @@
 		"onlyBuiltDependencies": [
 			"esbuild"
 		]
+	},
+	"dependencies": {
+		"@auth/prisma-adapter": "^2.9.0",
+		"@auth/sveltekit": "^1.9.1",
+		"@prisma/client": "^6.7.0",
+		"@tabler/icons-svelte": "^3.31.0"
 	}
 }
