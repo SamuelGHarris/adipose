@@ -15,7 +15,7 @@ importers:
         specifier: ^1.9.1
         version: 1.9.1(@sveltejs/kit@2.20.8(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.28.2)(vite@6.3.4(@types/node@22.15.3)(jiti@2.4.2)(lightningcss@1.29.2)))(svelte@5.28.2)(vite@6.3.4(@types/node@22.15.3)(jiti@2.4.2)(lightningcss@1.29.2)))(svelte@5.28.2)
       '@prisma/client':
-        specifier: ^6.7.0
+        specifier: 6.7.0
         version: 6.7.0(prisma@6.7.0(typescript@5.8.3))(typescript@5.8.3)
       '@tabler/icons-svelte':
         specifier: ^3.31.0
