@@ -8,7 +8,10 @@
 </script>
 
 <div class="flex w-full items-center justify-between">
-	<button class="btn btn-xl btn-ghost font-doto text-3xl font-[900]">Adipose</button>
+	<button
+		class="btn btn-xl btn-ghost font-doto text-primary text-shadow-primary-content text-3xl font-[900] text-shadow-xs"
+		>Adipose</button
+	>
 	<div class="flex items-center gap-4">
 		<DarkModeToggle />
 		<img class="mr-5 h-10 w-10 rounded-full shadow-lg" src={avatar} alt="User avatar" />
