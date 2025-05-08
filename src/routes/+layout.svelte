@@ -7,7 +7,7 @@
 	let { data, children } = $props();
 </script>
 
-<div class="bg-base-100 font-roboto h-screen w-screen">
+<div class="bg-base-100 font-roboto flex h-screen w-screen flex-col">
 	{#if !data?.session?.user?.id}
 		<div class="flex h-full w-full items-center justify-center">
 			<SignIn />

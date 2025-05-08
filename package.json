@@ -54,6 +54,7 @@
 		"@auth/prisma-adapter": "^2.9.0",
 		"@auth/sveltekit": "^1.9.1",
 		"@prisma/client": "6.7.0",
-		"@tabler/icons-svelte": "^3.31.0"
+		"@tabler/icons-svelte": "^3.31.0",
+		"chart.js": "^4.4.9"
 	}
 }
