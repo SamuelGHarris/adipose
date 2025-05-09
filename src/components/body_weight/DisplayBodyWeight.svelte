@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Chart, { type ChartItem } from 'chart.js/auto';
+	import { subDays, format } from 'date-fns';
 
 	const weightData = [
 		{ weight: 72.5, dateTime: new Date('2025-04-01T08:30:00') },
@@ -52,39 +53,55 @@
 		{ weight: 68.0, dateTime: new Date('2025-05-05T09:00:00') }
 	];
 
-	const labels = [
-		new Date(2025, 0, 1), // January 1, 2025
-		new Date(2025, 1, 1), // February 1, 2025
-		new Date(2025, 2, 1), // March 1, 2025
-		new Date(2025, 3, 1), // April 1, 2025
-		new Date(2025, 4, 1), // May 1, 2025
-		new Date(2025, 5, 1), // June 1, 2025
-		new Date(2025, 6, 1), // July 1, 2025
-		new Date(2025, 7, 1), // August 1, 2025
-		new Date(2025, 8, 1), // September 1, 2025
-		new Date(2025, 9, 1), // October 1, 2025
-		new Date(2025, 10, 1), // November 1, 2025
-		new Date(2025, 11, 1) // December 1, 2025
-	];
+	const getLast30Days = (): Date[] => {
+		let dates: Date[] = [];
+		for (let i = 0; i < 30; i++) {
+			let date = new Date('2025-04-30');
+			date = subDays(date, i);
+			dates = [date, ...dates];
+		}
+		return dates;
+	};
 
-	let chart = $state(
-		document.getElementById('body-weight')
-			? new Chart(document.getElementById('body-weight') as ChartItem, {
-					type: 'line',
-					data: {
-						labels,
-						datasets: [
-							{
-								label: 'Acquisitions by year',
-								data: weightData.map((row) => row.weight)
-							}
-						]
+	const matchDataToLabels = (labels: Date[], data: typeof weightData) => {
+		let dates: (Date | null)[] = [];
+		labels.forEach((date) => {
+			let flag = true;
+			for (let i = 0; i < data.length; i++) {
+				if (date.getTime() === data[i].dateTime.getTime()) {
+					dates.push(date);
+					flag = false;
+				}
+			}
+			if (flag) dates.push(null);
+		});
+		return dates;
+	};
+
+	let chart: null | HTMLCanvasElement = null;
+
+	const createChart = (ref: null | HTMLCanvasElement) => {
+		if (chart === null) return;
+		new Chart(chart, {
+			type: 'line',
+			data: {
+				labels: weightData.map((data) => format(data.dateTime, 'MM/dd')),
+				datasets: [
+					{
+						label: 'Acquisitions by year',
+						data: weightData.map((data) => data.weight)
 					}
-				})
-			: null
-	);
+				]
+			}
+		});
+	};
+
+	$effect(() => {
+		console.log('sdf');
+		createChart(chart);
+	});
 </script>
 
-<div class="jusitfy-center bg-base-300 content flex h-90 w-90 items-center rounded-md text-base">
-	<canvas id="body-weight"></canvas>
+<div class="jusitfy-center bg-base-300 content flex h-90 w-180 items-center rounded-md text-base">
+	<canvas bind:this={chart} id="body-weight"></canvas>
 </div>
