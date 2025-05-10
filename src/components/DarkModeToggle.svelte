@@ -38,10 +38,10 @@
 </script>
 
 <!-- @component Handles the setting and toggling of the application theme -->
-<button {onclick} class="btn btn-square btn-md btn-ghost">
+<button {onclick} class="btn btn-square btn-sm btn-ghost">
 	{#if theme === 'dark'}
-		<IconMoonFilled size={25} />
+		<IconMoonFilled size={20} />
 	{:else}
-		<IconSunFilled size={25} />
+		<IconSunFilled size={20} />
 	{/if}
 </button>
