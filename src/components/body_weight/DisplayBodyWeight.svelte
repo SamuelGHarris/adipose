@@ -88,10 +88,19 @@
 				labels: weightData.map((data) => format(data.dateTime, 'MM/dd')),
 				datasets: [
 					{
-						label: 'Acquisitions by year',
+						label: '2025',
 						data: weightData.map((data) => data.weight)
 					}
 				]
+			},
+			options: {
+				plugins: {
+					tooltip: {
+						callbacks: {
+							label: (item) => `${item.raw} lbs`
+						}
+					}
+				}
 			}
 		});
 	};
