@@ -78,5 +78,5 @@ model BodyWeight {
   userId   String
   weight   Decimal
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  dateTime DateTime
+  dateTime DateTime @default(now())
 }

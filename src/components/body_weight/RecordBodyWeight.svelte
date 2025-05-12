@@ -1,12 +1,14 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import { slide } from 'svelte/transition';
+	import type { PageProps } from '../../routes/$types';
 
 	type Props = {
 		onSubmit: (weight: number, dateTime: Date | undefined) => void;
 		class?: string;
 	};
 
-	let { onSubmit, class: className }: Props = $props();
+	let { onSubmit, class: className, data, form }: Props & PageProps = $props();
 
 	// Form mode
 	let formMode = $state<'today' | 'anotherDay'>('today');
@@ -23,15 +25,19 @@
 </script>
 
 <form
+	use:enhance
+	method="POST"
+	action="/?/recordBodyWeight"
 	class="bg-base-300 text-base-content flex flex-col rounded-md px-4 py-2 shadow-lg {className}"
 >
 	<p class="font-doto text-accent pt-2 pb-4 text-center text-lg font-[900]">Give me your weight.</p>
 	<div class="join">
-		<input bind:value={weight} class="input input-md join-item" />
+		<input name="weight" bind:value={weight} class="input input-md join-item" />
 		<div class="join-item bg-base-100 flex items-center justify-center p-2 text-sm">lbs</div>
 	</div>
 	{#if formMode === 'anotherDay'}
 		<input
+			name="dateTime"
 			transition:slide={{ duration: 100 }}
 			bind:value={dateTime}
 			class="input input-md mt-2"
@@ -39,7 +45,7 @@
 		/>
 	{/if}
 	<button class="btn btn-primary mt-4">Submit</button>
-	<button onclick={toggleFormMode} class="btn btn-link btn-xs text-base-content/50 text-shadow-none"
+	<button type="button" onclick={toggleFormMode} class="btn btn-link btn-xs text-base-content/50 text-shadow-none"
 		>{formToggleMessage}</button
 	>
 </form>

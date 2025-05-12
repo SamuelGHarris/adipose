@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "BodyWeight" ALTER COLUMN "dateTime" SET DEFAULT CURRENT_TIMESTAMP;
