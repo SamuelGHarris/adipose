@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+	import { getContext } from 'svelte';
 	import { slide } from 'svelte/transition';
+	import { enhance } from '$app/forms';
 	import type { PageProps } from '../../routes/$types';
 
 	type Props = {
@@ -10,6 +11,12 @@
 
 	let { onSubmit, class: className, data, form }: Props & PageProps = $props();
 
+	$inspect(form);
+	$inspect(data);
+
+	const context = getContext('formRecordBodyWeight');
+	
+	$inspect(context());
 	// Form mode
 	let formMode = $state<'today' | 'anotherDay'>('today');
 	let formToggleMessage = $derived(

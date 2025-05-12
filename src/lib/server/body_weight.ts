@@ -1,13 +1,13 @@
-import { prisma } from './prisma';
+import { Prisma } from '@prisma/client';
 
-// export const getBodyWeight = async ()
+import { prisma } from './prisma';
 
 export const recordBodyWeight = async (userId: string, weight: number, dateTime?: Date) => {
 	prisma.bodyWeight.create({
 	    data: {
 	        userId,
 			weight: Prisma.Decimal(weight),
-			dateTime: dateTime ? dateTime : Date.now()
+			dateTime: dateTime
 	    }
-	})
+	});
 };

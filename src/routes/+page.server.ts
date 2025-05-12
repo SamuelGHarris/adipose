@@ -1,10 +1,13 @@
 import type { Actions } from './$types';
+import type { User } from '@auth/sveltekit';
+
 import { isUserAuthenticated } from '$lib/server/utils';
 import { BodyWeightSchema } from '$lib/server/models';
+import { recordBodyWeight } from '$lib/server/body_weight';
 
 export const actions = {
     recordBodyWeight: async ({ locals, request }) => {
-        let user = isUserAuthenticated(await locals.auth());
+        let user: User = isUserAuthenticated(await locals.auth());
 
         // Validate inputs
         const formData = await request.formData();
@@ -12,9 +15,11 @@ export const actions = {
         const dateTime = formData.get('dateTime') ?? undefined;
         const submissionData = { userId: user.id, weight, dateTime };
         const result = BodyWeightSchema.safeParse(submissionData);
-        if (!result.success) return result;
+        console.log(result)
+        if (!result.success) return { recordBodyWeight: { ...result, error: result.error?.format() } };
 
         // Add to database
-
+        // recordBodyWeight(submissionData.userId as string, submissionData.weight as number, new Date(submissionData.dateTime as string))
+        return { recordBodyWeight: { success: true } };
     }
 } satisfies Actions;
