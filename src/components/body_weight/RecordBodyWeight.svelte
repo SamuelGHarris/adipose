@@ -15,14 +15,19 @@
 	let formToggleMessage = $derived(
 		formMode === 'today' ? 'submit for a previous day' : 'submit for today'
 	);
-	const toggleFormMode = () => {
-		formMode = formMode === 'today' ? 'anotherDay' : 'today';
-	};
-
 	// Form fields
 	let weight = $state<number>();
 	let dateTime = $state<string>();
 	let errors = $state<RecordBodyWeightError>();
+
+	const toggleFormMode = () => {
+		formMode = formMode === 'today' ? 'anotherDay' : 'today';
+		// errors = undefined; // Clear errors
+		// Reset dateTime
+		if (formMode === 'today') {
+			dateTime = undefined;
+		}
+	};
 
 	const handleSubmit = async (e: SubmitEvent) => {
 		e.preventDefault();
@@ -57,10 +62,10 @@
 
 	{#if formMode === 'anotherDay'}
 		<input
-			name="dateTime"
+			name="datetime"
 			transition:slide={{ duration: 100 }}
 			bind:value={dateTime}
-			class="input input-md mt-2 flex"
+			class={['input input-md mt-2 flex', errors?.dateTime && 'input-error']}
 			type="datetime-local"
 		/>
 		{#if errors?.dateTime}
@@ -71,6 +76,6 @@
 	<button
 		type="button"
 		onclick={toggleFormMode}
-		class="btn btn-link btn-xs text-base-content/50 text-shadow-none">{formToggleMessage}</button
+		class="btn btn-link btn-xs text-base-content/50 text-shadow-none mt-2">{formToggleMessage}</button
 	>
 </form>
