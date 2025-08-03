@@ -3,13 +3,14 @@
 	import AdiposeLogo from './AdiposeLogo.svelte';
 
 	type Props = {
-		avatar: string;
+		avatar: string | null | undefined;
+		class?: string;
 	};
-	let { avatar } = $props();
+	let { avatar, class: className }: Props = $props();
 </script>
 
 <div
-	class="bg-base-300 shadow- sticky top-0 flex w-full items-center justify-between px-4 py-2 shadow-md"
+	class="bg-base-300 sticky top-0 flex w-full items-center justify-between px-4 py-2 shadow-md {className}"
 >
 	<button class=" font-doto text-primary flex cursor-pointer gap-4 text-3xl font-[900]">
 		<AdiposeLogo class="w-10" />

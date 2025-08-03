@@ -27,3 +27,7 @@ export const recordBodyWeight = async ({
 		  }
 		| { success: true };
 };
+
+export const getAllBodyWeightData = async () => {
+	const response = await fetch('/api/body-weight?get=all');
+}

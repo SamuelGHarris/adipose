@@ -2,7 +2,7 @@
 	import { slide } from 'svelte/transition';
 	import { format } from 'date-fns';
 
-	import { recordBodyWeight, type RecordBodyWeightError } from '$lib/api-wrapper-functions';
+	import { recordBodyWeight, type RecordBodyWeightError, getAllBodyWeightData } from '$lib/api-wrapper-functions';
 
 	type Props = {
 		class?: string;
@@ -21,6 +21,7 @@
 	let errors = $state<RecordBodyWeightError>();
 
 	const toggleFormMode = () => {
+		getAllBodyWeightData();
 		formMode = formMode === 'today' ? 'anotherDay' : 'today';
 		errors = undefined;
 
