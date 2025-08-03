@@ -8,7 +8,9 @@
 	let { avatar } = $props();
 </script>
 
-<div class="bg-base-300 shadow- flex w-full items-center justify-between px-4 py-2 shadow-md sticky top-0">
+<div
+	class="bg-base-300 shadow- sticky top-0 flex w-full items-center justify-between px-4 py-2 shadow-md"
+>
 	<button class=" font-doto text-primary flex cursor-pointer gap-4 text-3xl font-[900]">
 		<AdiposeLogo class="w-10" />
 		Adipose</button

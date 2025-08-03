@@ -8,7 +8,7 @@ import type { User } from '@auth/sveltekit';
 
 /**
  * Record body weight
- * 
+ *
  * type requestBody = {
  * 	weight: string;
  * 	dateTime?: string;
@@ -17,7 +17,7 @@ import type { User } from '@auth/sveltekit';
 export const POST: RequestHandler = async ({ locals, request }) => {
 	const user: User = isUserAuthenticated(await locals.auth());
 	let { weight, dateTime } = await request.json();
-	console.log(dateTime);
+	
 	// Validate inputs
 	weight = weight ? Number(weight) : undefined;
 	dateTime = dateTime === '' ? undefined : dateTime;

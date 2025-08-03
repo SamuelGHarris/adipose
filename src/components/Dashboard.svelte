@@ -9,5 +9,5 @@
 </script>
 
 <div class={className}>
-	<RecordBodyWeight onSubmit={(weight, dateTime) => {}} />
+	<RecordBodyWeight />
 </div>
