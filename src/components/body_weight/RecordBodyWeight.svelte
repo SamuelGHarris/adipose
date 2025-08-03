@@ -14,6 +14,7 @@
 	let formToggleMessage = $derived(
 		formMode === 'today' ? 'submit for a previous day' : 'submit for today'
 	);
+	let isSubmitting = $state(false);
 
 	let weight = $state<number>();
 	let dateTime = $state<string>();
@@ -32,6 +33,7 @@
 
 	const handleSubmit = async (e: SubmitEvent) => {
 		e.preventDefault();
+		isSubmitting = true;
 		console.log(dateTime);
 		const response = await recordBodyWeight({ weight, dateTime });
 		if (!response.success) {
@@ -41,6 +43,7 @@
 			weight = undefined;
 			dateTime = undefined;
 		}
+		isSubmitting = false;
 	};
 	$inspect(errors);
 </script>
