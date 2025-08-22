@@ -12,12 +12,12 @@
 </svelte:head>
 
 <div class="bg-base-100 font-roboto flex h-screen w-screen flex-col">
-	{#if !data?.session?.user?.id}
+	{#if data.user && data.user.id}
+		<Nav avatar={data.user.image} />
+		{@render children()}
+	{:else}
 		<div class="flex h-full w-full items-center justify-center">
 			<SignIn />
 		</div>
-	{:else}
-		<Nav avatar={data.session.user.image} />
-		{@render children()}
 	{/if}
 </div>

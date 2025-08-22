@@ -25,7 +25,10 @@ export const getAllBodyWeightData = async (userId: string) => {
 				userId: userId
 			},
 			omit: {
-				userId: true,
+				userId: true
+			},
+			orderBy: {
+				dateTime: 'asc'
 			}
 		});
 		return val;
@@ -33,4 +36,4 @@ export const getAllBodyWeightData = async (userId: string) => {
 		console.error('Failed to get body weight data for user: ' + userId);
 		return null;
 	}
-}
+};

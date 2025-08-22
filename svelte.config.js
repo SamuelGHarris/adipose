@@ -15,6 +15,14 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$components: path.resolve('./src/components')
+		},
+		experimental: {
+			remoteFunctions: true
+		}
+	},
+	compilerOptions: {
+		experimental: {
+			async: true
 		}
 	}
 };

@@ -1,10 +1,9 @@
-import type { Session, User } from '@auth/sveltekit';
-import { redirect } from '@sveltejs/kit';
+import { getRequestEvent } from '$app/server';
 
-/** Will return the auth User object or redirect the user with a 303 */
-export const isUserAuthenticated = (session: Session | null): User => {
-	if (!session?.user?.id) {
-		redirect(303, '/');
-	}
-	return session.user;
+/** Returns User if authenticated, else null */
+export const isUserAuthenticated = async () => {
+	const { locals } = getRequestEvent();
+	const session = await locals.auth();
+
+	return !session?.user?.id ? null : session.user;
 };

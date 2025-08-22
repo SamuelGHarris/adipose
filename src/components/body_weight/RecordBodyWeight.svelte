@@ -2,7 +2,9 @@
 	import { slide } from 'svelte/transition';
 	import { format } from 'date-fns';
 
-	import { recordBodyWeight, type RecordBodyWeightError, getAllBodyWeightData } from '$lib/api-wrapper-functions';
+	import { recordBodyWeight } from '$lib/body_weight.remote';
+
+	import Loading from '$components/Loading.svelte';
 
 	type Props = {
 		class?: string;
@@ -14,14 +16,13 @@
 	let formToggleMessage = $derived(
 		formMode === 'today' ? 'submit for a previous day' : 'submit for today'
 	);
-	let isSubmitting = $state(false);
 
 	let weight = $state<number>();
 	let dateTime = $state<string>();
-	let errors = $state<RecordBodyWeightError>();
+	let errors = $derived(recordBodyWeight.result?.errors);
+	let isSubmitting = $derived(recordBodyWeight.pending > 0);
 
 	const toggleFormMode = () => {
-		getAllBodyWeightData();
 		formMode = formMode === 'today' ? 'anotherDay' : 'today';
 		errors = undefined;
 
@@ -32,26 +33,24 @@
 		}
 	};
 
-	const handleSubmit = async (e: SubmitEvent) => {
-		e.preventDefault();
-		isSubmitting = true;
-		console.log(dateTime);
-		const response = await recordBodyWeight({ weight, dateTime });
-		if (!response.success) {
-			errors = response.errors;
-		} else {
-			errors = undefined;
-			weight = undefined;
-			dateTime = undefined;
-		}
-		isSubmitting = false;
+	const clearForm = () => {
+		weight = undefined;
 	};
-	$inspect(errors);
 </script>
 
 <!-- @component Form for submitting bodyweight -->
 <form
-	onsubmit={handleSubmit}
+	{...recordBodyWeight.enhance(async ({ form, data, submit }) => {
+		if (!isSubmitting) {
+			try {
+				console.log('made it here');
+				await submit();
+				clearForm();
+			} catch (error) {
+				console.error('Failure during body weight form submission');
+			}
+		}
+	})}
 	class="bg-base-300 text-base-content flex flex-col rounded-md px-4 py-2 shadow-lg {className}"
 >
 	<p class="font-doto text-accent pt-2 pb-4 text-center text-lg font-[900]">Give me your weight.</p>
@@ -79,7 +78,13 @@
 			<p class="text-error pt-1 text-xs font-light">{errors.dateTime._errors?.[0]}</p>
 		{/if}
 	{/if}
-	<button class="btn btn-primary mt-4"> Submit </button>
+	<button disabled={isSubmitting} class="btn btn-primary mt-4">
+		{#if isSubmitting}
+			<Loading size="sm" color="bg-primary-content" />
+		{:else}
+			Submit
+		{/if}
+	</button>
 	<button
 		type="button"
 		onclick={toggleFormMode}
