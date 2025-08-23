@@ -1,36 +1,23 @@
 services:
   db:
     image: postgres:17.6
-    environment:
-      POSTGRES_USER: adipose
-      POSTGRES_DB: adipose
-      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    env_file:
+      - .env.production
     volumes:
       - db_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    secrets:
-      - db_password
+    restart: always
 
   app:
-    image: apline:3.22.1
-    restart: always
+    build: .
     depends_on:
-      db
-    environment:
+      - db
     env_file:
-      - path: ./env
-        required: true
+      - .env.production
     ports:
       - "3000:3000"
+    restart: always
   
 volumes:
   db_data:
-
-secrets:
-  db_password:
-    enviornment: DB_PASSWORD
-  app_auth_secret:
-    environment: APP_AUTH_SECRET
-  app_github_secret:
-    environment: APP_GITHUB_SECRET

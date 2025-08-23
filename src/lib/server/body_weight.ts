@@ -14,7 +14,7 @@ export const recordBodyWeight = async (userId: string, weight: number, dateTime?
 		return val;
 	} catch {
 		console.error('Failed to record body weight');
-		return null;
+		return null;  
 	}
 };
 

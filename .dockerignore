@@ -1,0 +1,13 @@
+build
+.svelte-kit
+node_modules
+pg_data
+.env
+.gitignore
+.prettierignore
+.prettierrc
+eslint.config.js
+playwright.config.ts
+README.md
+start-database.sh
+vitest-setup-client.ts

@@ -2,32 +2,27 @@ FROM node:alpine3.22 AS builder
 
 WORKDIR /app
 
-# Copy package files and install deps
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+# Install all dependencies (Dev and non-dev)
+COPY . .
+RUN npx pnpm install
 
-# Copy source code
-COPY ./src ./static svelte.config.js tsconfig.json vite.config.ts ./
+# Build app
+RUN npx pnpm run build
 
-# Build the SvelteKit app
-RUN npm run build
+# Remove dev dependencies
+RUN npx pnpm prune --prod
 
-# Stage 2: Production image
 FROM node:alpine3.22 AS runner
 
 WORKDIR /app
 
-# Copy only the built app and production dependencies
+# Grab everything required to run the app
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/prisma ./prisma
 
-# Use a non-root user for better security
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser
-
-# Expose port 3000 (default for adapter-node)
 EXPOSE 3000
 
-# Start the app
-CMD ["node", "build"]
+# Run prisma against db and start the app
+CMD ["sh", "-c", "npx prisma migrate deploy && node build"]
