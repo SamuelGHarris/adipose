@@ -1,7 +1,5 @@
 <script lang="ts">
-	import type { BodyWeightData } from '$lib/api-wrapper-functions';
 	import type { BodyWeight } from '@prisma/client';
-
 	import RecordBodyWeight from './body_weight/RecordBodyWeight.svelte';
 
 	type Props = {
@@ -14,5 +12,5 @@
 
 <div class={className}>
 	<!-- <DisplayBodyWeight data={bodyWeightData} /> -->
-	<RecordBodyWeight class="w-60" />
+	<!-- <RecordBodyWeight class="w-60" /> -->
 </div>

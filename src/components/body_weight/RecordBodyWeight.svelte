@@ -43,7 +43,6 @@
 	{...recordBodyWeight.enhance(async ({ form, data, submit }) => {
 		if (!isSubmitting) {
 			try {
-				console.log('made it here');
 				await submit();
 				clearForm();
 			} catch (error) {
