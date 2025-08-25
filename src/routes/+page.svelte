@@ -12,5 +12,5 @@
 
 <div class="flex h-full w-screen items-center justify-center">
 	<!-- <DisplayBodyWeight /> -->
-	<Dashboard bodyWeightData={[]} />
+	<Dashboard class="w-full h-full" bodyWeightData={[]} />
 </div>
