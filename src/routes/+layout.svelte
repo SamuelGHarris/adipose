@@ -15,7 +15,9 @@
 <div class="bg-base-100 font-roboto relative flex h-dvh w-dvw flex-col">
 	{#if data.user && data.user.id}
 		<Nav avatar={data.user.image} />
-		{@render children()}
+		<div class="flex-1 overflow-hidden">
+			{@render children()}
+		</div>
 		<Controls class="absolute right-0 bottom-0 p-4" />
 	{:else}
 		<div class="flex h-full w-full items-center justify-center">

@@ -13,7 +13,6 @@
 	let { class: className } = $props();
 
 	let isRecordBodyWeightShowing = $state(false);
-	$inspect(isRecordBodyWeightShowing);
 </script>
 
 <!-- {#snippet control(Icon: typeof IconScaleOutline)}

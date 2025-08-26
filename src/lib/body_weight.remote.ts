@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import { Prisma } from '@prisma/client';
 
-import { form } from '$app/server';
+import { form, query } from '$app/server';
 
 import { prisma } from '$lib/server/prisma';
 import { isUserAuthenticated } from '$lib/server/utils';
@@ -34,6 +34,30 @@ export const recordBodyWeight = form(async (data) => {
 		});
 		return { success: !!val };
 	} catch {
-		error(400, 'Server Error');
+		error(500, 'Server Error');
+	}
+});
+
+export const getAllBodyWeights = query(async () => {
+	const user = await isUserAuthenticated();
+	if (!user) {
+		error(401, 'Unauthorized');
+	}
+
+	try {
+		const val = await prisma.bodyWeight.findMany({
+			where: {
+				userId: user.id
+			},
+			omit: {
+				userId: true
+			},
+			orderBy: {
+				dateTime: 'asc'
+			}
+		});
+		return val.map((obj) => ({...obj, weight: obj.weight.toNumber()}))
+	} catch {
+		error(500, 'Server Error');
 	}
 });
