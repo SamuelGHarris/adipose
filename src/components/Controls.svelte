@@ -1,7 +1,5 @@
 <script lang="ts">
-	import {
-		IconPlus,
-	} from '@tabler/icons-svelte';
+	import { IconPlus } from '@tabler/icons-svelte';
 	import RecordBodyWeight from './body_weight/RecordBodyWeight.svelte';
 	import { clickOutside } from '$lib/actions';
 	import { fade } from 'svelte/transition';
@@ -34,9 +32,9 @@
 }} /> -->
 
 <div class="flex flex-col items-center justify-center gap-2 {className}">
-    <div class="relative">
-        <button
-            transition:fade={{ duration: 100 }}
+	<div class="relative">
+		<button
+			transition:fade={{ duration: 100 }}
 			onclick={(e) => {
 				e.stopPropagation();
 				isRecordBodyWeightShowing = !isRecordBodyWeightShowing;
@@ -45,14 +43,14 @@
 		>
 			<IconPlus size={25} />
 		</button>
-        {#if isRecordBodyWeightShowing}
-            <div
-                class="absolute right-0 bottom-0"
-                use:clickOutside
-                onoutsideclick={() => (isRecordBodyWeightShowing = !isRecordBodyWeightShowing)}
-            >
-                <RecordBodyWeight class="w-60" />
-            </div>
-        {/if}
-    </div>
+		{#if isRecordBodyWeightShowing}
+			<div
+				class="absolute right-0 bottom-0"
+				use:clickOutside
+				onoutsideclick={() => (isRecordBodyWeightShowing = !isRecordBodyWeightShowing)}
+			>
+				<RecordBodyWeight class="w-60" />
+			</div>
+		{/if}
+	</div>
 </div>

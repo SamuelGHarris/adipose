@@ -56,7 +56,7 @@ export const getAllBodyWeights = query(async () => {
 				dateTime: 'asc'
 			}
 		});
-		return val.map((obj) => ({...obj, weight: obj.weight.toNumber()}))
+		return val.map((obj) => ({ ...obj, weight: obj.weight.toNumber() }));
 	} catch {
 		error(500, 'Server Error');
 	}
