@@ -11,40 +11,40 @@
 	};
 
 	let { class: className }: Props = $props();
-
+	const id = $props.id();
 	let formMode = $state<'today' | 'anotherDay'>('today');
 	let formToggleMessage = $derived(
 		formMode === 'today' ? 'submit for a previous day' : 'submit for today'
 	);
-
-	let weight = $state<number>();
-	let dateTime = $state<string>();
-	let errors = $derived(recordBodyWeight.result?.errors);
+	recordBodyWeight.result;
+	let weightErrors = $derived(recordBodyWeight.fields.weight.issues() ?? []);
+	let dateErrors = $derived(recordBodyWeight.fields.dateTime.issues() ?? []);
 	let isSubmitting = $derived(recordBodyWeight.pending > 0);
+	$inspect('wewight', recordBodyWeight.fields.weight.value());
+	$inspect('date', recordBodyWeight.fields.dateTime.value());
 
 	const toggleFormMode = () => {
 		formMode = formMode === 'today' ? 'anotherDay' : 'today';
-		errors = undefined;
 
 		if (formMode === 'today') {
-			dateTime = undefined;
+			recordBodyWeight.fields.dateTime.set('');
 		} else {
-			dateTime = format(new Date(), "yyyy-MM-dd'T'HH:mm");
+			recordBodyWeight.fields.dateTime.set(format(new Date(), "yyyy-MM-dd'T'HH:mm"));
 		}
-	};
-
-	const clearForm = () => {
-		weight = undefined;
+		recordBodyWeight.validate();
 	};
 </script>
 
 <!-- @component Form for submitting bodyweight -->
 <form
-	{...recordBodyWeight.enhance(async ({ form, data, submit }) => {
+	id="record-body-weight-{id}"
+	{...recordBodyWeight.enhance(async ({ form, submit }) => {
 		if (!isSubmitting) {
 			try {
 				await submit();
-				clearForm();
+				if (!recordBodyWeight.fields.allIssues()) {
+					form.reset();
+				}
 			} catch (error) {
 				console.error('Failure during body weight form submission');
 			}
@@ -55,26 +55,23 @@
 	<p class="font-doto text-accent pt-2 pb-4 text-center text-lg font-[900]">Give me your weight.</p>
 	<div class="join">
 		<input
-			name="weight"
-			bind:value={weight}
-			class={['input input-md join-item', errors?.weight && 'input-error']}
+			{...recordBodyWeight.fields.weight.as('number')}
+			class={['input input-md join-item', weightErrors.length > 0 && 'input-error']}
 		/>
 		<div class="join-item bg-base-100 flex items-center justify-center p-2 text-sm">lbs</div>
 	</div>
-	{#if errors?.weight}
-		<p class="text-error pt-1 text-xs font-light">{errors.weight._errors?.[0]}</p>
+	{#if weightErrors.length > 0}
+		<p class="text-error pt-1 text-xs font-light">{weightErrors[0].message}</p>
 	{/if}
 
 	{#if formMode === 'anotherDay'}
 		<input
-			name="datetime"
+			{...recordBodyWeight.fields.dateTime.as('datetime-local')}
 			transition:slide={{ duration: 100 }}
-			bind:value={dateTime}
-			class={['input input-md mt-2 flex', errors?.dateTime && 'input-error']}
-			type="datetime-local"
+			class={['input input-md mt-2 flex', dateErrors.length > 0 && 'input-error']}
 		/>
-		{#if errors?.dateTime}
-			<p class="text-error pt-1 text-xs font-light">{errors.dateTime._errors?.[0]}</p>
+		{#if dateErrors.length > 0}
+			<p class="text-error pt-1 text-xs font-light">{dateErrors[0].message}</p>
 		{/if}
 	{/if}
 	<button disabled={isSubmitting} class="btn btn-primary mt-4">

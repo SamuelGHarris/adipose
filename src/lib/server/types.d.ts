@@ -3,17 +3,9 @@ import type { BodyWeight } from '@prisma/client';
 import { Prisma } from '@prisma/client';
 
 export const BodyWeightSchema = z.object({
-	userId: z.string().cuid(),
-	weight: z.coerce.number({ message: 'Must be a number > 0' }).gt(0, 'Must be > 0'),
+	weight: z.number('Must be a number > 0').gt(0, 'Must be > 0'),
 	dateTime: z.coerce
-		.date()
+		.date<string>()
 		.optional()
-		.superRefine((val, ctx) => {
-			if (val !== undefined && val > new Date()) {
-				ctx.addIssue({
-					code: z.ZodIssueCode.custom,
-					message: 'Please stay in the past or present'
-				});
-			}
-		})
+		.refine((val) => val === undefined || val <= new Date(), 'Please stay in the past or present')
 });
