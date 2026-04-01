@@ -1,14 +1,9 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { sveltekitCookies } from "better-auth/svelte-kit";
-import { PrismaClient } from "$prisma/generated/client";
-import { PrismaPg } from '@prisma/adapter-pg';
 import { getRequestEvent } from "$app/server";
 
-const adapter = new PrismaPg({
-	connectionString: process.env.DATABASE_URL
-});
-const prisma = new PrismaClient({ adapter });
+import { prisma } from "$lib/server/prisma";
 
 export const auth = betterAuth({
     database: prismaAdapter(prisma, {
