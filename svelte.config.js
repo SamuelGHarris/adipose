@@ -14,7 +14,8 @@ const config = {
 		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
 		adapter: adapter(),
 		alias: {
-			$components: path.resolve('./src/components')
+			$components: path.resolve('./src/components'),
+			$prisma: path.resolve('./prisma/')
 		},
 		experimental: {
 			remoteFunctions: true
