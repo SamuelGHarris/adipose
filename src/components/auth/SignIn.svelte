@@ -16,7 +16,9 @@
 	>
 		Login to <span class="text-primary pl-1 font-[900]">Adipose</span>.
 	</p>
-	<div class="bg-base-300 flex w-full flex-col items-center gap-2 rounded-md p-4 shadow-md sm:w-80">
+	<div
+		class="border-base-content/25 bg-base-300 flex w-full flex-col items-center gap-2 rounded-md border p-4 shadow-md sm:w-80"
+	>
 		<label class="flex w-full flex-col gap-0.5 text-sm">
 			Email
 			<input type="text" class="input input-md w-full" placeholder="obesity@gmail.com" />
