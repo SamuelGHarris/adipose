@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap');
 @import 'tailwindcss';
-@plugin "daisyui";
+@plugin 'daisyui';
 
 @theme {
 	--font-roboto: 'Roboto', sans-serif;
