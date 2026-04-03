@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { SignIn } from '@auth/sveltekit/components';
+	import SignIn from '$components/auth/SignIn.svelte';
 </script>
 
-<div class="flex h-full w-full items-center justify-center">
+<div class="flex h-dvh w-dvw items-center justify-center">
 	<SignIn />
 </div>
