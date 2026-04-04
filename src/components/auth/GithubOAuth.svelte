@@ -12,7 +12,7 @@
 
 <button
 	onclick={githubSignin}
-	class="btn btn-sm text-base-content btn-neutral flex h-10 w-full items-center justify-center {className}"
+	class="btn btn-sm btn-neutral flex h-10 w-full items-center justify-center {className}"
 >
 	<IconBrandGithubFilled />
 	Sign in with GitHub
