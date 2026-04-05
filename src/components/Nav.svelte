@@ -18,9 +18,9 @@
 
 <div class="bg-base-300 sticky top-0 flex w-full shadow-md {className}">
 	<div class="relative flex w-full items-center justify-between px-4 py-2">
-		<button class="font-doto text-primary flex cursor-pointer gap-4 text-3xl font-[900]">
+		<button class="font-doto text-primary flex cursor-pointer gap-4 text-3xl font-black">
 			<AdiposeLogo class="w-10" />
-			Adipose</button
+			Adipose.</button
 		>
 		<div class="flex items-center gap-4">
 			<DarkModeToggle />
@@ -28,10 +28,10 @@
 				class="bg-base-100 h-10 w-10 cursor-pointer overflow-hidden rounded-md"
 				onclick={() => (isDropdownShowing = !isDropdownShowing)}
 			>
-				{#if !avatar}
+				{#if avatar}
 					<img class="h-full w-full" src={avatar} alt="User avatar" />
 				{:else}
-					<span class="font-doto text-secondary h-full w-full font-[900]">?</span>
+					<span class="font-doto text-secondary h-full w-full font-black">?</span>
 				{/if}
 			</button>
 		</div>

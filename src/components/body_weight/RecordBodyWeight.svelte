@@ -52,7 +52,7 @@
 	})}
 	class="bg-base-300 text-base-content flex flex-col rounded-md px-4 py-2 shadow-lg {className}"
 >
-	<p class="font-doto text-accent pt-2 pb-4 text-center text-lg font-[900]">Give me your weight.</p>
+	<p class="font-doto text-accent pt-2 pb-4 text-center text-lg font-black">Give me your weight.</p>
 	<div class="join">
 		<input
 			{...recordBodyWeight.fields.weight.as('number')}

@@ -10,7 +10,13 @@
 	const { data }: Props = $props();
 </script>
 
-<div class="flex h-full w-screen items-center justify-center">
+<div class="flex h-full w-screen flex-col items-center justify-center">
+	<div class="w-full flex-1"></div>
+	<div class="pb-8">
+		<button class="btn btn-lg btn-primary font-doto text-2xl font-black uppercase"
+			>Start Session</button
+		>
+	</div>
 	<!-- <DisplayBodyWeight /> -->
 	<!-- <Dashboard class="h-full w-full" bodyWeightData={[]} /> -->
 </div>
