@@ -5,6 +5,7 @@
 	import { authClient } from '$lib/auth/client';
 
 	import GithubOAuth from '$components/auth/GithubOAuth.svelte';
+	import Loading from '$components/Loading.svelte';
 
 	const schema = z.object({
 		email: z.email({ message: 'Please provide a valid email' }),
@@ -14,6 +15,7 @@
 	let email = $state<string | null>(null);
 	let password = $state<string | null>(null);
 	let hasUserTriedToSubmit = $state(false);
+	let submitInProgress = $state(false);
 
 	const validateForm = (email: string | null, password: string | null) => {
 		const error = schema.safeParse({ email, password })?.error;
@@ -26,19 +28,16 @@
 		passwordError: errors?.password?.errors?.[0]
 	});
 
-	const submit = () => {
+	const submit = async () => {
 		hasUserTriedToSubmit = true;
-		console.log('before', errors);
-		if (!email || !password || errors) {
-			return;
-		}
-		console.log('after');
-
-		authClient.signIn.email({
+		if (submitInProgress || !email || !password || errors) return;
+		submitInProgress = true;
+		await authClient.signIn.email({
 			email,
 			password,
 			callbackURL: '/'
 		});
+		submitInProgress = false;
 	};
 </script>
 
@@ -81,7 +80,13 @@
 				<p class="text-error text-xs">{passwordError}</p>
 			{/if}
 		</div>
-		<button onclick={submit} class="btn btn-md btn-primary w-full">Login</button>
+		<button onclick={submit} class="btn btn-md btn-primary w-full">
+			{#if submitInProgress}
+				<Loading size="sm" color="bg-primary-content" />
+			{:else}
+				Login
+			{/if}
+		</button>
 		<p class="font-doto pb-1 text-lg font-black">......................</p>
 		<div class="flex w-full flex-col items-center">
 			<GithubOAuth class="btn-primary btn-outline" />
