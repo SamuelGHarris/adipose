@@ -6,14 +6,14 @@
 	import DarkModeToggle from './DarkModeToggle.svelte';
 	import AdiposeLogo from './AdiposeLogo.svelte';
 	import SignOut from './auth/SignOut.svelte';
+	import { IconMoodTongueWink2 } from '@tabler/icons-svelte';
 
 	type Props = {
 		name: string;
 		avatar: string | null | undefined;
 		class?: string;
 	};
-	let { name, avatar, class: className }: Props = $props();
-
+	const { name, avatar, class: className }: Props = $props();
 	let isDropdownShowing = $state(false);
 </script>
 
@@ -45,8 +45,15 @@
 				<div
 					{@attach clickOutside(() => (isDropdownShowing = false))}
 					transition:fade={{ duration: 100 }}
-					class="bg-base-300 border-base-content/25 w-full rounded-sm border p-2"
+					class="bg-base-300 border-base-content/25 flex w-full flex-col gap-2 rounded-sm border p-2"
 				>
+					<div class="flex w-full items-center gap-1">
+						<IconMoodTongueWink2 />
+						<p title={name} class="flex-1 truncate text-sm font-medium">
+							{name}
+						</p>
+					</div>
+
 					<SignOut class="w-full" />
 				</div>
 			</div>
