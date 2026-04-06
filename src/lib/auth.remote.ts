@@ -1,10 +1,40 @@
 import { form } from '$app/server';
 import z from 'zod';
 
+import { auth } from './auth/server';
+
+export const signInUser = form(
+	z.object({
+		email: z.email(),
+		password: z.string()
+	}),
+	async ({ email, password }) => {
+		const response = await auth.api.signInEmail({
+			body: {
+				email,
+				password
+			},
+			asResponse: true
+		});
+		if (!response.ok) {
+			console.error(`User failed to sign in (email: ${email})`);
+			return { success: false };
+		}
+
+		return new Response(null, {
+			status: 303,
+			headers: {
+				Location: '/',
+				'Set-Cookie': response.headers.get('set-cookie') ?? ''
+			}
+		});
+	}
+);
+
 export const createUser = form(
 	z
 		.object({
-			name: z.string(),
+			name: z.string().nonempty({ message: 'This cannot be empty' }),
 			email: z.email(),
 			password: z
 				.string()
@@ -24,5 +54,26 @@ export const createUser = form(
 				}),
 			confirmPassword: z.string()
 		})
-		.refine()
+		.refine((data) => data.password === data.confirmPassword, {
+			message: 'Passwords do not match',
+			path: ['confirmPassword']
+		}),
+	async ({ name, email, password }) => {
+		const response = await auth.api.signUpEmail({
+			body: { name, email, password, callbackURL: '/' },
+			asResponse: true
+		});
+		if (!response.ok) {
+			console.error(`Failed to create user (name: ${name}, email: ${email})`);
+			return { success: false };
+		}
+
+		return new Response(null, {
+			status: 303,
+			headers: {
+				Location: '/',
+				'Set-Cookie': response.headers.get('set-cookie') ?? ''
+			}
+		});
+	}
 );
