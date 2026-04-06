@@ -51,7 +51,7 @@
 		class="border-base-content/25 bg-base-300 flex w-full flex-col items-center gap-2 rounded-sm border p-4 shadow-md sm:w-80"
 	>
 		<div class="flex w-full flex-col gap-0.5">
-			<label class="flex w-full flex-col gap-0.5 text-sm">
+			<label class="flex w-full flex-col gap-0.5 text-sm font-medium">
 				Email
 				<input
 					bind:value={email}
@@ -66,7 +66,7 @@
 			{/if}
 		</div>
 		<div class="flex w-full flex-col gap-0.5 pb-2">
-			<label class="flex w-full flex-col gap-0.5 text-sm">
+			<label class="flex w-full flex-col gap-0.5 text-sm font-medium">
 				Password
 				<input
 					bind:value={password}
