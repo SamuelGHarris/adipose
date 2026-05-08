@@ -8,6 +8,13 @@
 	};
 
 	const { data }: Props = $props();
+
+	/** Thinking of climb type
+	 * grade: 5-A, 5-B, etc (enum)
+	 * reps: number
+	 * firstTimeOnRoute: boolean
+	 * 
+	*/
 </script>
 
 <div class="flex h-full w-screen flex-col items-center justify-center">

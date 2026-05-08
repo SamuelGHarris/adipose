@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client"
   output   = "./generated"
@@ -8,16 +7,45 @@ datasource db {
   provider = "postgresql"
 }
 
+enum ClimbingType {
+  BOULDERING
+  LEAD
+  TOP_ROPE
+}
+
+enum WallProfile {
+  OVERHANG
+  VERTICAL
+  SLAB
+  CRACK
+  CAVE
+}
+
+enum ClimbingResult {
+  SENT
+  HANGDOG
+  ATTEMPT
+}
+
+enum DifficultyFeel {
+  VERY_SOFT
+  SOFT
+  FAIR
+  HARD
+  VERY_HARD
+}
+
 model User {
-  id            String    @id
+  id            String            @id
   name          String
   email         String
-  emailVerified Boolean   @default(false)
+  emailVerified Boolean           @default(false)
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
   sessions      Session[]
   accounts      Account[]
+  workouts      ClimbingWorkout[]
 
   @@unique([email])
   @@map("user")
@@ -69,4 +97,46 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+model ClimbingWorkout {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  climbs    Climb[]
+
+  @@index([userId])
+  @@map("climbing_workout")
+}
+
+model Climb {
+  id             String          @id @default(cuid())
+  workoutId      String
+  workout        ClimbingWorkout @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+
+  // Grade & Style
+  grade          String
+  climbingType   ClimbingType
+  wallProfile    WallProfile
+
+  // Attempt Info
+  targetLaps     Int             @default(1)
+  completedLaps  Int             @default(0)
+  result         ClimbingResult
+  difficultyFeel DifficultyFeel?
+
+  // Location
+  isOutdoor      Boolean         @default(false)
+  location       String?
+
+  // Notes
+  notes          String?
+
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@index([workoutId])
+  @@map("climb")
 }
