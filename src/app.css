@@ -78,7 +78,8 @@
 }
 
 @layer base {
-	html, body {
+	html,
+	body {
 		font-family: var(--font-mono);
 	}
 }

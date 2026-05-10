@@ -107,6 +107,10 @@ model ClimbingWorkout {
   updatedAt DateTime @updatedAt
   climbs    Climb[]
 
+  // Location
+  isOutdoor Boolean  @default(false)
+  location  String?
+
   @@index([userId])
   @@map("climbing_workout")
 }
@@ -126,10 +130,6 @@ model Climb {
   completedLaps  Int             @default(0)
   result         ClimbingResult
   difficultyFeel DifficultyFeel?
-
-  // Location
-  isOutdoor      Boolean         @default(false)
-  location       String?
 
   // Notes
   notes          String?

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { IconMoodTongueWink2 } from '@tabler/icons-svelte';
+	import { goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
 
 	import { clickOutside } from '$lib/attachments';
@@ -6,7 +8,6 @@
 	import DarkModeToggle from './DarkModeToggle.svelte';
 	import AdiposeLogo from './AdiposeLogo.svelte';
 	import SignOut from './auth/SignOut.svelte';
-	import { IconMoodTongueWink2 } from '@tabler/icons-svelte';
 
 	type Props = {
 		name: string;
@@ -18,10 +19,13 @@
 </script>
 
 <div
-	class="bg-base-300 border-base-content/25 sticky top-0 flex w-full border-b shadow-md {className}"
+	class="bg-base-300 border-base-content/25 sticky top-0 z-30 flex w-full border-b shadow-md {className}"
 >
 	<div class="relative flex w-full items-center justify-between px-4 py-2">
-		<button class="font-doto text-primary flex cursor-pointer gap-4 text-3xl font-black">
+		<button
+			onclick={() => goto('/')}
+			class="font-doto text-primary flex cursor-pointer gap-4 text-3xl font-black"
+		>
 			<AdiposeLogo class="w-10" />
 			Adipose.</button
 		>
