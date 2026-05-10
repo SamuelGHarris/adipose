@@ -22,25 +22,25 @@
 	<div class="flex w-full flex-1 flex-col p-2 sm:w-4/5 lg:w-1/2">
 		<div class="bg-base-300 border-base-content/25 flex w-full flex-col rounded-sm overflow-hidden border p-2 gap-2 shadow-md">
 			<div class="flex flex-col w-full gap-2">
-				<div class="flex w-full justify-between">
+				<div class="flex w-full items-center justify-between">
 					<div
-						class="h-fit text-primary-content bg-primary border-base-content/25 flex items-center justify-center rounded-sm border p-1 leading-none text-semibold"
+						class="h-fit text-primary-content bg-primary border-base-content/25 flex items-center justify-center rounded-sm border leading-none font-semibold px-1 py-0.5 pt-1"
 					>
 						<!-- <IconCliffJumping size={22} /> -->
 						CLIMB
 					</div>
-					<div class="text-xs flex items-center gap-1 pl-2 mr-auto">
-						<IconMapPin size={15}/>
+					<div class="text-sm font-semibold flex items-center gap-1 pl-2 mr-auto">
+						<IconAt size={15}/>
 						CENTINNEAL MOVEMENT
 					</div>
 					<button class="btn btn-xs btn-square btn-error"><IconTrash size={16} /></button>
 				</div>
-				<div class="flex items-center gap-2 leading-none text-sm font-semibold text-base-content">
+				<div class="flex items-center gap-2 leading-none text-sm font-semibold">
 					<span>TOP ROPE</span>
 					<IconCircleFilled size={5} class="mb-0.5" />
 					<span>ENDURANCE</span>
 				</div>
-				<p class="text-base-content/50 text-xs">{format(new Date(), 'pp MM/dd/yyyy')}</p>
+				<p class="text-base-content/60 text-xs">{format(new Date(), 'pp MM/dd/yyyy')}</p>
 			</div>
 			<div class="flex flex-col border border-base-content/25 divide-y divide-base-content/25 rounded w-full overflow-hidden">
 				<div class="flex items-center gap-2 divide-x divide-base-content/25 bg-base-200">
