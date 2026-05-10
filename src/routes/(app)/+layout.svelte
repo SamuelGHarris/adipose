@@ -11,7 +11,7 @@
 	let { data, children }: Props = $props();
 </script>
 
-<div class="bg-base-100 font-roboto relative flex h-dvh w-dvw flex-col">
+<div class="bg-base-100 relative flex h-dvh w-dvw flex-col">
 	<Nav name={data.user.name} avatar={data.user.image} />
 	<div class="flex-1 overflow-hidden">
 		{@render children()}
