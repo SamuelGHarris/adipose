@@ -27,4 +27,4 @@ vite.config.ts.timestamp-*
 # DB
 pg_data
 prisma/prisma_client
-prisma/generated
+src/lib/prisma

@@ -1,4 +1,4 @@
-import type { User } from '../../../prisma/generated/client';
+import type { User } from '$lib/prisma/client';
 
 import { prisma } from '$lib/server/prisma';
 
