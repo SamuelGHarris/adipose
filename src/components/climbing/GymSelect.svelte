@@ -11,6 +11,6 @@
 
 <select bind:value class="select select-sm w-fit {className}">
 	{#each Object.values(Gym) as gym (gym)}
-		<option>{gym}</option>
+		<option value={gym} >{gym.toUpperCase()}</option>
 	{/each}
 </select>

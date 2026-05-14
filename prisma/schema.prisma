@@ -103,13 +103,16 @@ model ClimbingWorkout {
   id        String   @id @default(cuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt  DateTime @default(now())
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   climbs    Climb[]
 
   // Location
   isOutdoor Boolean  @default(false)
   location  String?
+
+  // Notes
+  notes     String?
 
   @@index([userId])
   @@map("climbing_workout")
@@ -130,9 +133,6 @@ model Climb {
   completedLaps  Int             @default(0)
   result         ClimbingResult
   difficultyFeel DifficultyFeel?
-
-  // Notes
-  notes          String?
 
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt

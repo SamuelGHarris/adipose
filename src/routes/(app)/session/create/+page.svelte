@@ -1,13 +1,12 @@
 <script lang="ts">
-	import { untrack } from 'svelte';
-	import { ClimbingType, WallProfile, ClimbingResult, DifficultyFeel } from '$lib/prisma/enums';
-	import type { Prisma } from '$lib/prisma/client';
-	import ClimbWorkoutBadge from '$components/climbing/ClimbWorkoutBadge.svelte';
+	import { format } from 'date-fns';
 	import { IconAt } from '@tabler/icons-svelte';
+
+	import ClimbWorkoutBadge from '$components/climbing/ClimbWorkoutBadge.svelte';
 	import GymSelect from '$components/climbing/GymSelect.svelte';
 	import { Gym } from '$components/climbing/models';
-	import { format } from 'date-fns';
-	// import { authClient } from "$lib/auth/client"
+	import ClimbTypeSelect from '$components/climbing/ClimbTypeSelect.svelte';
+	import { ClimbingType } from '$lib/prisma/enums';
 
 	type Props = {
 		userId: string;
@@ -25,6 +24,7 @@
 	// 	data.userId = userId;
 	// })
 	let location = $state(Gym.MovementCentennial);
+	let climbingType = $state(ClimbingType.TOP_ROPE);
 	let startDateTime = new Date();
 </script>
 
@@ -33,11 +33,23 @@
 		<div class="flex w-full items-center gap-2">
 			<ClimbWorkoutBadge size="xl" />
 			<IconAt size={18} />
-			<GymSelect bind:value={location} />
+			<GymSelect bind:value={location} class="flex-1" />
 		</div>
-		<p class="text-base-content/60 text-xs">{format(startDateTime, 'pp MM/dd/yyyy')}</p>
+		<p class="text-base-content/60 text-sm">{format(startDateTime, 'pp MM/dd/yyyy')}</p>
 		<div
-			class="bg-base-300 border-base-content/25 flex h-40 w-full flex-col rounded-sm border"
-		></div>
+			class="bg-base-300 border-base-content/25 flex h-40 w-full flex-col rounded-sm border p-2 pt-0"
+		>
+			<div class="w-full flex justify-between items-center">
+				<p>1</p>
+				<label class="flex items-center gap-2 pt-2">
+					Warm-up?
+					<input class="checkbox" type="checkbox"/>
+				</label>
+			</div>
+			<label class="flex flex-col gap-1 uppercase">
+				Mode
+				<ClimbTypeSelect bind:value={climbingType} />
+			</label>
+		</div>
 	</div>
 </div>

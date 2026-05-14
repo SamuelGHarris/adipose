@@ -3,4 +3,4 @@ export enum Gym {
 	MovementBaker = 'Movement Baker',
 	MovementRiNo = 'Movement RiNo',
 	MovementEnglewood = 'Movement Englewood'
-}
+};

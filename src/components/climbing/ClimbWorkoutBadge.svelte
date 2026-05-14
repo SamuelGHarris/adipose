@@ -11,7 +11,7 @@
 			case 'md':
 				return 'px-1 py-0.5 pt-1';
 			case 'xl':
-				return 'px-2 py-1 pt-1.5 text-lg';
+				return 'px-1 py-0.5 pt-1 text-2xl';
 			default:
 				return undefined;
 		}
