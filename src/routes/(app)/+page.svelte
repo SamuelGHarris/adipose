@@ -4,6 +4,7 @@
 	import { format } from 'date-fns';
 
 	import type { PageData } from './$types';
+	import ClimbWorkoutBadge from '$components/climbing/ClimbWorkoutBadge.svelte';
 
 	type Props = {
 		data: PageData;
@@ -26,12 +27,7 @@
 		>
 			<div class="relative flex w-full flex-col gap-2">
 				<div class="flex w-full items-center justify-between">
-					<div
-						class="text-primary-content bg-primary border-base-content/25 flex h-fit items-center justify-center rounded-sm border px-1 py-0.5 pt-1 leading-none font-semibold"
-					>
-						<!-- <IconCliffJumping size={22} /> -->
-						CLIMB
-					</div>
+					<ClimbWorkoutBadge />
 					<div class="mr-auto flex items-center gap-1 pl-2 text-sm font-semibold">
 						<IconAt stroke={2.6} size={15} />
 						CENTINNEAL MOVEMENT
